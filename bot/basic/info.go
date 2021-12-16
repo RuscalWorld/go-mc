@@ -40,15 +40,13 @@ type ServInfo struct {
 }
 
 func (p *Player) handleLoginPacket(packet pk.Packet) error {
-	var WorldCount pk.VarInt
-	var WorldNames = make([]pk.Identifier, 0)
+	var WorldNames []pk.Identifier
 	err := packet.Scan(
 		(*pk.Int)(&p.EID),
 		(*pk.Boolean)(&p.Hardcore),
 		(*pk.UnsignedByte)(&p.Gamemode),
 		(*pk.Byte)(&p.PrevGamemode),
-		&WorldCount,
-		pk.Ary{Len: &WorldCount, Ary: &WorldNames},
+		(*pk.Ary[pk.VarInt, pk.Identifier])(&WorldNames),
 		pk.NBT(new(nbt.RawMessage)),
 		pk.NBT(new(nbt.RawMessage)),
 		(*pk.Identifier)(&p.WorldName),

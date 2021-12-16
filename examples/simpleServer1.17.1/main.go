@@ -165,17 +165,16 @@ func joinGame(conn net.Conn) error {
 		pk.Boolean(false),  // Is hardcore
 		pk.UnsignedByte(1), // Gamemode
 		pk.Byte(1),         // Previous Gamemode
-		pk.VarInt(1),       // World Count
-		pk.Ary{Len: 1, Ary: []pk.Identifier{"world"}},      // World Names
-		pk.NBT(nbt.StringifiedMessage(dimensionCodecSNBT)), // Dimension codec
-		pk.NBT(nbt.StringifiedMessage(dimensionSNBT)),      // Dimension
-		pk.Identifier("world"),                             // World Name
-		pk.Long(0),                                         // Hashed Seed
-		pk.VarInt(MaxPlayer),                               // Max Players
-		pk.VarInt(15),                                      // View Distance
-		pk.Boolean(false),                                  // Reduced Debug Info
-		pk.Boolean(true),                                   // Enable respawn screen
-		pk.Boolean(false),                                  // Is Debug
-		pk.Boolean(true),                                   // Is Flat
+		pk.Ary[pk.VarInt, pk.Identifier]([]pk.Identifier{"world"}), // World Names
+		pk.NBT(nbt.StringifiedMessage(dimensionCodecSNBT)),         // Dimension codec
+		pk.NBT(nbt.StringifiedMessage(dimensionSNBT)),              // Dimension
+		pk.Identifier("world"),                                     // World Name
+		pk.Long(0),                                                 // Hashed Seed
+		pk.VarInt(MaxPlayer),                                       // Max Players
+		pk.VarInt(15),                                              // View Distance
+		pk.Boolean(false),                                          // Reduced Debug Info
+		pk.Boolean(true),                                           // Enable respawn screen
+		pk.Boolean(false),                                          // Is Debug
+		pk.Boolean(true),                                           // Is Flat
 	))
 }
